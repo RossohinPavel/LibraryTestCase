@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'simple_history',
     'users',
     'books',
-    'librarian',
+    'reader',
+    'mainpage'
 ]
 
 MIDDLEWARE = [
