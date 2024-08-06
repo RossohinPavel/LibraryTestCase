@@ -1,6 +1,31 @@
-Каталог
-Мои книги
-Список должников
-Выход
-Войти
-Регистрация
+{% extends 'base.html' %}
+{% block navigation %}
+<div class="container">
+	<header class="d-flex justify-content-center py-3">
+		<ul class="nav nav-pills">
+			{% if user.is_authenticated %}
+			<li class="nav-item"> {{user.username}} | <a href="{% url 'logout' %}">Выйти</a></li>
+			{% else %}
+			<li class="nav-item"><a href="{% url 'login' %}">Войти</a> | <a href="#">Регистрация</a></li>
+			{% endif %}
+			<li class="nav-item">
+				<a href="#" class="nav-link">Библиотека</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link">Мои книги</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link">Список должников</a>
+			</li>
+		</ul>
+		<button type="button" class="btn btn-outline-primary me-2">Выйти</button>
+		<button type="button" class="btn btn-primary">Пользователь</button>
+		<button type="button" class="btn btn-outline-primary me-2">Войти</button>
+		<button type="button" class="btn btn-primary">Регистрация</button>
+		<form action="{% url 'logout' %}" method="post">
+    		{% csrf_token %}
+    	<button type="submit">Log out</button>
+		</form>
+	</header>
+</div>
+{% endblock %}
