@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from books.views import books_list
 
 
 # Create your views here.
-@login_required
 def index(request):
-	return render(request, 'books/books_list.html')
+	if not request.user.is_authenticated:
+		return render(request, 'nav.html', context={'title': 'Библиотека'})
+	return books_list(request)
