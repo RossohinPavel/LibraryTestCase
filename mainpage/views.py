@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from books.views import books_list
+from books.views import BooksList
 from librarian.views import debtors_list
 from django.core.handlers.wsgi import WSGIRequest
 
@@ -13,4 +13,4 @@ def index(request: WSGIRequest):
 	if request.user.is_staff:
 		return debtors_list(request)
 
-	return books_list(request)
+	return BooksList.as_view()(request)

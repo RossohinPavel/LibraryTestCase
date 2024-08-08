@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
+from .models import Book
 
 common_context = {
 	"links": {
@@ -9,14 +12,18 @@ common_context = {
 	
 }
 
-
 # Create your views here.
-@login_required
-def books_list(request):
-	"""Представление для отображения списка книг"""
-	context = common_context.copy()
-	context['title'] = 'Список книг'
-	return render(request, 'books/list.html', context=context)
+class BooksList(LoginRequiredMixin, ListView):
+	model = Book
+	template_name = 'books/list.html'
+	context_object_name = 'books'
+	paginate_by = 5
+	
+	def get_context_data(self, **kwargs):
+		context: dict = super().get_context_data(**kwargs)
+		context['title'] = 'Список книг'
+		context.update(common_context)
+		return context
 
 
 @login_required
