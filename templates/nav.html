@@ -12,12 +12,16 @@
 			    </li>
 			{% endfor %}
 		</ul>
-		<div>
-			<form action="{% url 'logout' %}" method="post">
-    			{% csrf_token %}
-    		<button type="submit" class="btn btn-outline-primary me-2">Выйти</button>
-			<a href="#" class="btn btn-primary">{{ user.username }}</a>
-		</div>
+		<div class="dropdown">
+			<button class="btn btn-primary">{{ user.username }}</button>
+			<div class="dropdown-content">
+				<a href="{% url 'user' %}">Карточка</a>
+				<form id="myform" action="{% url 'logout' %}" method="post">
+					{% csrf_token %}
+					<a href="#" onclick="document.getElementById('myform').submit();">Выход</a>
+				</form>
+			</div>
+		  </div>
 		{% else %}
 		<div style="margin-left: auto;">
 			<a href="{% url 'register' %}" class="btn btn-outline-primary me-2">Регистрация</a>

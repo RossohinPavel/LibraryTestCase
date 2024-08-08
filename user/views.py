@@ -1,7 +1,9 @@
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from .forms import RegisterUserForm, LoginUserForm
+from .forms import RegisterUserForm, LoginUserForm, UpdateUserForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -23,3 +25,20 @@ class LoginUserView(LoginView):
         'button_label': 'Войти'
     }
     success_url = reverse_lazy('home')
+
+
+@login_required
+def update_user(request):
+    if request.method == 'POST':
+        form = UpdateUserForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse_lazy('home'))
+    else:
+        form = UpdateUserForm(instance=request.user)
+    context = {
+        'form': form,
+        'title': 'Карточка пользователя',
+        'button_label': 'Обновить'
+    }
+    return render(request, 'user/logreg.html', context=context)
