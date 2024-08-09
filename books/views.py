@@ -27,6 +27,29 @@ class BooksList(LoginRequiredMixin, ListView):
 
 
 @login_required
+def read(request):
+	def inner():
+		if book.reader is None:
+			book.reader = request.user
+			return
+		if book.reader == request.user:
+			book.reader = None
+			return
+
+	if request.method == 'POST':
+		book = Book.objects.get(pk=request.POST['book_id'])
+		inner()
+		book.save()
+
+		context = {
+			'book': book,
+			'user': request.user
+		}
+	
+		return render(request, 'books/list_book_btn.html', context)
+
+
+@login_required
 def mybooks(request):
 	"""Представление для отображения списка книг"""
 	context = common_context.copy()

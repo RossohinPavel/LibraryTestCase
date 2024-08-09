@@ -23,6 +23,6 @@ from books.views import mybooks
 urlpatterns = [
     path('', index, name='home'),
     path('', include('user.urls')),
+    path('', include('books.urls')),
     path('admin/', admin.site.urls),
-    path('mybooks/', mybooks, name="mybooks")
 ]

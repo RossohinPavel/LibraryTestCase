@@ -15,23 +15,10 @@
     transform: translate(-50%, -50%)
 }
 
-.book {
-	width: 450px;
-	margin: 10px;
-}
-
 .register-btn {
 	float: right;
 
 }
-
-
-.book_block {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
 
 .myptag {
 	margin: 0;
@@ -75,3 +62,16 @@
 
 /* Изменение цвета фона кнопки раскрывающегося списка при отображении содержимого раскрывающегося списка */
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Для странички с списком книг */
+.book {
+	width: 450px;
+	margin: 10px;
+}
+
+.book_block {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
